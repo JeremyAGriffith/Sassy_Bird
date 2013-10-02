@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sassy Bird! - OOP JS</title>
+	
+	<script>
+		function Ninja (name, home_dojo) {
+			var belt_level = Math.random();
+			var skill = "html, css, php";
+			this.home_dojo = home_dojo;
+			this.name = name;
+
+			this.level_up = function(num_of_hours){
+				alert(this.name+" has been studying for "+num_of_hours+"<br>LEVEL UP!!!");
+			}
+
+			this.disp_belt_lvl = function(){
+				console.log(belt_level);
+			}
+		}
+
+		// var Eleanor = new Ninja("Eleanor", "Seattle");
+		// var Bob = new Ninja("Bob", "Mountain View");
+		// Eleanor.disp_belt_lvl();
+		// Bob.disp_belt_lvl();
+		// console.log(Eleanor, Bob);
+		// alert(Eleanor.name);
+		// alert(Eleanor.home_dojo);
+		// alert(Eleanor.level_up());
+
+		function Bird (type, num_of_legs) {
+			this.type = type;
+			this.num_of_legs = (num_of_legs>=0) ? num_of_legs : 0;
+			var is_endangered = (num_of_legs===2) ? false : true;
+
+			this.fly_away = function(){
+				alert("See you sucka!!!!");
+			}
+
+			this.peck_face = function(num_of_times){
+				for(var i=0; i<num_of_times; i++){
+					var str = this.type+" bird says--<br />&raquo; ";
+					switch(Math.floor(Math.random()*4)){
+						case 0:
+							document.write(str+"I just pecked your face!!!<br />");
+							// document.getElementById('msgs').innerHTML="I just pecked your face!!!";
+							// alert("I just pecked your face!!!");
+						break;
+						case 1:
+							document.write(str+"This isn't your first time being pecked is it?<br />");
+							// document.getElementById('msgs').innerHTML="Oh, did I just peck you again?";
+							// alert("Oh, did I just peck you again?");
+						break;
+						case 2:
+							document.write(str+"Have I pecked you before?!?!?!<br />");
+							// document.getElementById('msgs').innerHTML="Pecked you again?!?!?!";
+							// alert("Pecked you again?!?!?!");
+						break;
+						default:
+							document.write(str+"Its just too easy to peck your face!<br />");
+							// document.getElementById('msgs').innerHTML="Its just too easy to peck your face!";
+							// alert("Its just too easy to peck your face!");
+						break;
+					}
+				}
+			}
+
+			this.displ_endangered = function(){
+				is_endangered ? alert("I have "+this.num_of_legs+" leg(s)!!!  You CAN'T touch this") : alert("I getting outta here before you realize I'm just an ordinary bird");
+			}
+		}
+	</script>
+</head>
+<body>
+	<script>
+		var sassy_bird = new Bird('sassy', Math.floor(Math.random()*4));
+		sassy_bird.peck_face(5);
+		setTimeout(function(){
+			sassy_bird.displ_endangered();
+			sassy_bird.fly_away();
+		}, 1000);
+	</script>
+</body>
+</html>
