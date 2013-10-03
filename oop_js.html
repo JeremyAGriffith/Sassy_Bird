@@ -5,64 +5,68 @@
 	<title>Sassy Bird! - OOP JS</title>
 	
 	<script>
-		function Ninja (name, home_dojo) {
-			var belt_level = Math.random();
-			var skill = "html, css, php";
-			this.home_dojo = home_dojo;
-			this.name = name;
-
-			this.level_up = function(num_of_hours){
-				alert(this.name+" has been studying for "+num_of_hours+"<br>LEVEL UP!!!");
-			}
-
-			this.disp_belt_lvl = function(){
-				console.log(belt_level);
-			}
-		}
-
-		// var Eleanor = new Ninja("Eleanor", "Seattle");
-		// var Bob = new Ninja("Bob", "Mountain View");
-		// Eleanor.disp_belt_lvl();
-		// Bob.disp_belt_lvl();
-		// console.log(Eleanor, Bob);
-		// alert(Eleanor.name);
-		// alert(Eleanor.home_dojo);
-		// alert(Eleanor.level_up());
-
 		function Bird (type, num_of_legs) {
-			this.type = type;
+			// AVAILABLE TYPES: big_bird | love_bird | sassy_bird
+			switch(type){
+				case 1:
+					this.type = "big";
+				break;
+				case 2:
+					this.type = "love";
+				break;
+				default:
+					this.type = "sassy";
+				break;
+			}
+			// only a positive # of legs
 			this.num_of_legs = (num_of_legs>=0) ? num_of_legs : 0;
+			// any # of legs more or less than 2 is considered ENDANGERED
 			var is_endangered = (num_of_legs===2) ? false : true;
+			var bird_calls;
+			var img;
+
+			this.init_bird = function(){
+				var str = this.type+" bird says--<br />&raquo; ";
+				switch(this.type){
+					case "big":
+						img = "imgs/big.png";
+						bird_calls = [str+"4 + 4 = ..... 8<br />", 
+							str+"i before e except after c!!!!<br />",
+							str+"e^i*pi = .....it's so simple?!?!?!<br />",
+							str+"dy/dx(2x^4) = ....8x^3<br />"];
+					break;
+					case "love":
+						img = "imgs/love.png";
+						bird_calls = [str+"You are quite pretty!<br />", 
+							str+"I'll sing you a song... la la la!<br />",
+							str+"It's too bad I'm a bird!<br />",
+							str+"I can't get over how beautiful you are.<br />"];
+					break;
+					// everything else is a sassy bird
+					default:
+						img = "imgs/sassy.png";
+						bird_calls = [str+"I just pecked your face!!!<br />", 
+							str+"This isn't your first time being pecked is it?<br />",
+							str+"Have I pecked you before?!?!?!<br />",
+							str+"Its just too easy to peck your face!<br />"];
+					break;
+				}
+				document.write("<div style='width:130px; margin-bottom:20px;'><img src='"+img+"' style='width:120px; margin:0 0 -5px 0;' /><br />");
+				var html = "";
+				for(var li=0; li<this.num_of_legs; li++){
+					html += "<img src='imgs/leg.png' style='width:30px; height:30px; margin:0 10% 0 -15%; float:right;' />";
+				}
+				document.write(html+"</div><br />");
+			}
+			this.init_bird();
 
 			this.fly_away = function(){
 				alert("See you sucka!!!!");
 			}
 
-			this.peck_face = function(num_of_times){
+			this.bird_call = function(num_of_times){
 				for(var i=0; i<num_of_times; i++){
-					var str = this.type+" bird says--<br />&raquo; ";
-					switch(Math.floor(Math.random()*4)){
-						case 0:
-							document.write(str+"I just pecked your face!!!<br />");
-							// document.getElementById('msgs').innerHTML="I just pecked your face!!!";
-							// alert("I just pecked your face!!!");
-						break;
-						case 1:
-							document.write(str+"This isn't your first time being pecked is it?<br />");
-							// document.getElementById('msgs').innerHTML="Oh, did I just peck you again?";
-							// alert("Oh, did I just peck you again?");
-						break;
-						case 2:
-							document.write(str+"Have I pecked you before?!?!?!<br />");
-							// document.getElementById('msgs').innerHTML="Pecked you again?!?!?!";
-							// alert("Pecked you again?!?!?!");
-						break;
-						default:
-							document.write(str+"Its just too easy to peck your face!<br />");
-							// document.getElementById('msgs').innerHTML="Its just too easy to peck your face!";
-							// alert("Its just too easy to peck your face!");
-						break;
-					}
+					document.write(bird_calls[Math.floor(Math.random()*4)]);
 				}
 			}
 
@@ -74,8 +78,8 @@
 </head>
 <body>
 	<script>
-		var sassy_bird = new Bird('sassy', Math.floor(Math.random()*4));
-		sassy_bird.peck_face(5);
+		var sassy_bird = new Bird(Math.floor(Math.random()*4), Math.floor(Math.random()*4));
+		sassy_bird.bird_call(5);
 		setTimeout(function(){
 			sassy_bird.displ_endangered();
 			sassy_bird.fly_away();
